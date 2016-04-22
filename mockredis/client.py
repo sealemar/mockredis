@@ -161,8 +161,7 @@ class MockRedis(object):
             pass
 
         # Make regex out of glob styled pattern.
-        regex = fnmatch.translate(pattern)
-        regex = re.compile(re.sub(r'(^|[^\\])\.', r'\1[^/]', regex))
+        regex = re.compile(fnmatch.translate(pattern))
 
         # Find every key that matches the pattern
         return [key for key in self.redis.keys() if regex.match(key.decode('utf-8'))]
